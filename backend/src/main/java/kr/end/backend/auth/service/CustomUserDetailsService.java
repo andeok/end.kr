@@ -1,7 +1,7 @@
 package kr.end.backend.auth.service;
 
 import kr.end.backend.auth.dto.response.CustomUserDetails;
-import kr.end.backend.global.exception.EndException;
+import kr.end.backend.global.exception.JJUSTException;
 import kr.end.backend.global.exception.ErrorCode;
 import kr.end.backend.member.domain.Member;
 import kr.end.backend.member.repository.MemberRepository;
@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     Member member = memberRepository.findByEmail(username)
         .orElseThrow(
-            () -> new EndException(ErrorCode.NOT_FOUND_MEMBER)
+            () -> new JJUSTException(ErrorCode.NOT_FOUND_MEMBER)
         );
     return new CustomUserDetails(member);
   }

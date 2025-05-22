@@ -8,12 +8,10 @@ public record MemberResponse(
         String email,
         String nickname
 ) {
-
-    public MemberResponse(Member m) {
-        this(
-                m.getId(),
-                m.getEmail(),
-                m.getNickname()
+    public static MemberResponse from(Member user) {
+        return new MemberResponse(
+            user.getId(), user.getEmail(), user.getNickname()
         );
     }
+
 }

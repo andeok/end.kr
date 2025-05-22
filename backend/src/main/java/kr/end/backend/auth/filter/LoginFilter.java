@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import kr.end.backend.auth.dto.request.LoginRequest;
 import kr.end.backend.auth.dto.response.CustomUserDetails;
 import kr.end.backend.auth.dto.response.LoginResponse;
-import kr.end.backend.auth.service.cookie.CookieProvider;
+import kr.end.backend.auth.controller.cookie.CookieProvider;
 import kr.end.backend.auth.service.jwt.JwtProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
@@ -83,6 +83,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
 
   private Authentication getAuthentication(LoginRequest loginDto) {
+
     UsernamePasswordAuthenticationToken authentication =
         UsernamePasswordAuthenticationToken.unauthenticated(loginDto.email(), loginDto.password());
     return this.getAuthenticationManager().authenticate(authentication);

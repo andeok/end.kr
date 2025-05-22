@@ -1,17 +1,14 @@
 package kr.end.backend.auth.service;
 
 import kr.end.backend.auth.dto.request.SignupRequest;
-import kr.end.backend.auth.dto.response.CustomUserDetails;
-import kr.end.backend.global.exception.EndException;
+import kr.end.backend.auth.service.jwt.JwtResolver;
+import kr.end.backend.global.exception.JJUSTException;
 import kr.end.backend.global.exception.ErrorCode;
 import kr.end.backend.member.domain.Member;
 import kr.end.backend.member.dto.response.MemberResponse;
 import kr.end.backend.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +21,7 @@ public class AuthService {
 
   private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
+  private final JwtResolver jwtResolver;
 
   @Transactional
   public MemberResponse signupMember(SignupRequest request) {
@@ -41,7 +39,7 @@ public class AuthService {
   private void duplicateEmail(String email) {
     boolean exists = memberRepository.findByEmail(email).isPresent();
     if (exists) {
-      throw new EndException(ErrorCode.ALREADY_REGISTERED_EMAIL);
+      throw new JJUSTException(ErrorCode.ALREADY_REGISTERED_EMAIL);
     }
   }
 
@@ -51,4 +49,9 @@ public class AuthService {
     return passwordEncoder.encode(rawPassword);
   }
 
+  @Transactional(readOnly = true)
+  public Member getAuthUser(String token) {
+    AuthMember authMember = jwtResolver.resolveAccessToken(token);
+    return memberRepository.getMemberById(authMember.id());
+  }
 }

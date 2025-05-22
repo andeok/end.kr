@@ -3,7 +3,7 @@ package kr.end.backend.global.config;
 import jakarta.validation.Validator;
 import kr.end.backend.auth.filter.LoginFilter;
 import kr.end.backend.auth.service.CustomUserDetailsService;
-import kr.end.backend.auth.service.cookie.CookieProvider;
+import kr.end.backend.auth.controller.cookie.CookieProvider;
 import kr.end.backend.auth.service.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

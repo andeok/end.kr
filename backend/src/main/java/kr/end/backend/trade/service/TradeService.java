@@ -1,6 +1,6 @@
 package kr.end.backend.trade.service;
 
-import kr.end.backend.global.exception.EndException;
+import kr.end.backend.global.exception.JJUSTException;
 import kr.end.backend.global.exception.ErrorCode;
 import kr.end.backend.member.domain.Member;
 import kr.end.backend.member.service.MemberService;
@@ -30,7 +30,7 @@ public class TradeService {
 
         if (request.parentId() != null) {
             trade = tradeRepository.findById(request.parentId())
-                .orElseThrow(() -> new EndException(ErrorCode.NOT_FOUND_PRODUCT));
+                .orElseThrow(() -> new JJUSTException(ErrorCode.NOT_FOUND_PRODUCT));
         }
 
         Trade entity = request.toEntity(trade, member);

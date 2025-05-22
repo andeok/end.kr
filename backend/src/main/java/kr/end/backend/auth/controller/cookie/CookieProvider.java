@@ -1,4 +1,4 @@
-package kr.end.backend.auth.service.cookie;
+package kr.end.backend.auth.controller.cookie;
 
 import java.time.Duration;
 import kr.end.backend.auth.service.jwt.JwtProperties;

@@ -42,8 +42,5 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
-    // 연관관계 (예시)
-    @OneToMany(mappedBy = "member")
-    private List<OAuthAccount> oauthAccounts;
 
 }
